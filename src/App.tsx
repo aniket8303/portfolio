@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
