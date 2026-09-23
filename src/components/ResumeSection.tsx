@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Download, ExternalLink, FileText } from 'lucide-react';
+import { Download, FileText } from 'lucide-react';
 
 const ResumeSection = () => {
   return (
