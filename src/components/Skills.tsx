@@ -1,6 +1,47 @@
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Database, Brain, Server, Code2, Wrench, Layout } from 'lucide-react';
+
+const allSkills = [
+  // Programming
+  { name: "Java", category: "Programming", icon: <Code2 size={24} />, color: "from-orange-500 to-red-500" },
+  { name: "Python", category: "Programming", icon: <Code2 size={24} />, color: "from-blue-500 to-yellow-500" },
+  { name: "C++", category: "Programming", icon: <Code2 size={24} />, color: "from-blue-600 to-blue-800" },
+  { name: "JavaScript", category: "Programming", icon: <Code2 size={24} />, color: "from-yellow-400 to-yellow-600" },
+  { name: "TypeScript", category: "Programming", icon: <Code2 size={24} />, color: "from-blue-400 to-blue-600" },
+  // Frontend
+  { name: "React", category: "Frontend", icon: <Layout size={24} />, color: "from-cyan-400 to-cyan-600" },
+  { name: "Next.js", category: "Frontend", icon: <Layout size={24} />, color: "from-gray-700 to-black" },
+  { name: "Tailwind", category: "Frontend", icon: <Layout size={24} />, color: "from-teal-400 to-teal-600" },
+  { name: "HTML/CSS", category: "Frontend", icon: <Layout size={24} />, color: "from-orange-400 to-orange-600" },
+  // Backend
+  { name: "Spring Boot", category: "Backend", icon: <Server size={24} />, color: "from-green-500 to-green-700" },
+  { name: "FastAPI", category: "Backend", icon: <Server size={24} />, color: "from-teal-500 to-teal-700" },
+  { name: "Node.js", category: "Backend", icon: <Server size={24} />, color: "from-green-600 to-green-800" },
+  { name: "Hibernate", category: "Backend", icon: <Server size={24} />, color: "from-yellow-600 to-yellow-800" },
+  // Database
+  { name: "MySQL", category: "Database", icon: <Database size={24} />, color: "from-blue-500 to-blue-700" },
+  { name: "PostgreSQL", category: "Database", icon: <Database size={24} />, color: "from-indigo-500 to-indigo-700" },
+  // AI
+  { name: "LLMs", category: "AI", icon: <Brain size={24} />, color: "from-purple-500 to-purple-700" },
+  { name: "RAG Pipeline", category: "AI", icon: <Brain size={24} />, color: "from-fuchsia-500 to-fuchsia-700" },
+  { name: "Prompt Eng", category: "AI", icon: <Brain size={24} />, color: "from-pink-500 to-pink-700" },
+  // Tools
+  { name: "Docker", category: "Tools", icon: <Wrench size={24} />, color: "from-blue-400 to-blue-600" },
+  { name: "Git", category: "Tools", icon: <Wrench size={24} />, color: "from-red-500 to-red-700" },
+];
 
 const Skills = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <motion.section
       id="skills"
@@ -12,141 +53,71 @@ const Skills = () => {
     >
       <div className="max-w-6xl mx-auto">
         
-        {/* Editorial Heading */}
-        <div className="mb-16 border-l-2 border-primary pl-6">
-          <h2 className="text-4xl md:text-5xl font-bold font-heading text-white mb-4 uppercase tracking-wider">
-            My Arsenal
+        {/* Heading */}
+        <div className="mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-white mb-4 tracking-wider">
+            Skill Playground
           </h2>
-          <p className="text-white/60 text-lg md:text-xl font-light">
-            A comprehensive overview of my technical expertise.
+          <p className="text-white/60 text-lg md:text-xl font-light max-w-2xl mx-auto">
+            {isMobile ? "Tap and drag the badges around!" : "Grab, drag, and throw the skills around the playground!"}
           </p>
         </div>
 
-        {/* Bento Box Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* Playground Container */}
+        <div 
+          ref={containerRef}
+          className="relative w-full h-[600px] md:h-[700px] glass-panel rounded-[3rem] border border-white/10 overflow-hidden bg-[#0a1222]/80 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)]"
+        >
+          {/* Inner playground styling */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none"></div>
           
-          {/* Programming - Large Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="md:col-span-2 lg:col-span-2 row-span-2 glass-panel p-8 rounded-[2rem] relative overflow-hidden group hover:border-primary/40 transition-colors bg-[#0a1222]/80"
-          >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10 group-hover:bg-primary/20 transition-all duration-700"></div>
-            <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-widest border-b border-white/10 pb-4">Programming</h3>
-            <div className="flex flex-wrap gap-3">
-              {["Java", "C++", "Python", "JavaScript", "TypeScript"].map((skill, i) => (
-                <span key={i} className="px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-lg font-medium text-white/90 hover:bg-primary hover:text-background hover:-translate-y-1 transition-all duration-300 shadow-sm cursor-default">
-                  {skill}
-                </span>
-              ))}
-            </div>
-            <div className="mt-8 pt-8 border-t border-white/5">
-              <p className="text-white/50 text-sm leading-relaxed">
-                Strong foundation in Object-Oriented Programming and Data Structures. Primary focus on Java ecosystem.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* AI / GenAI - Tall Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="md:col-span-1 lg:col-span-1 row-span-2 glass-panel p-8 rounded-[2rem] relative overflow-hidden group hover:border-purple-500/40 transition-colors bg-[#0a1222]/80"
-          >
-            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-purple-500/10 to-transparent -z-10 group-hover:from-purple-500/20 transition-all duration-700"></div>
-            <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-widest text-purple-400">AI / GenAI</h3>
-            <ul className="space-y-4">
-              {["Generative AI", "LLMs", "Prompt Engineering", "Embeddings", "Semantic Similarity", "RAG", "AI API Integration"].map((skill, i) => (
-                <li key={i} className="flex items-center text-white/80 group-hover:text-white transition-colors">
-                  <span className="w-1.5 h-1.5 bg-purple-500 rounded-full mr-3 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></span>
-                  <span className="font-medium text-sm md:text-base">{skill}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Database - Square Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="md:col-span-1 lg:col-span-1 glass-panel p-6 rounded-[2rem] flex flex-col justify-between group hover:border-blue-400/40 transition-colors"
-          >
-            <h3 className="text-sm font-bold text-white/50 mb-4 uppercase tracking-widest">Database</h3>
-            <div className="flex flex-wrap gap-2">
-              {["MySQL", "PostgreSQL", "SQL"].map((skill, i) => (
-                <span key={i} className="px-3 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-lg text-sm font-bold">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Backend - Wide Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="md:col-span-2 lg:col-span-2 glass-panel p-6 md:p-8 rounded-[2rem] relative overflow-hidden group hover:border-green-400/40 transition-colors"
-          >
-            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-              <div className="w-24 h-24 border-4 border-green-500 rounded-full border-dashed animate-[spin_20s_linear_infinite]"></div>
-            </div>
-            <h3 className="text-xl font-bold text-green-400 mb-6 uppercase tracking-widest">Backend Systems</h3>
-            <div className="flex flex-wrap gap-3 relative z-10">
-              {["Spring Boot", "FastAPI", "Node.js", "Express.js", "REST APIs", "Hibernate/JPA"].map((skill, i) => (
-                <span key={i} className="px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-sm font-medium text-white/90 hover:bg-green-500 hover:text-background hover:border-green-500 transition-all cursor-default">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Frontend - Square Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="md:col-span-1 lg:col-span-1 glass-panel p-6 rounded-[2rem] group hover:border-pink-400/40 transition-colors"
-          >
-            <h3 className="text-sm font-bold text-pink-400 mb-4 uppercase tracking-widest">Frontend</h3>
-            <div className="flex flex-col gap-2">
-              {["React", "Next.js", "HTML/CSS", "Bootstrap"].map((skill, i) => (
-                <div key={i} className="flex justify-between items-center text-sm font-medium text-white/70 group-hover:text-white transition-colors">
-                  {skill}
-                  <div className="w-full max-w-[40px] h-[2px] bg-white/10 rounded-full overflow-hidden ml-2">
-                    <div className="w-full h-full bg-pink-500 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 p-4 md:p-12 flex flex-wrap content-center justify-center gap-4 md:gap-6">
+            {allSkills.map((skill, index) => {
+              // Calculate random initial rotation for a messy playground look
+              const randomRotation = Math.floor(Math.random() * 30) - 15;
+              
+              return (
+                <motion.div
+                  key={skill.name}
+                  drag
+                  dragConstraints={containerRef}
+                  dragElastic={0.2}
+                  dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                  whileHover={{ scale: 1.1, zIndex: 50 }}
+                  whileDrag={{ scale: 1.2, zIndex: 100, cursor: "grabbing" }}
+                  initial={{ opacity: 0, scale: 0, rotate: randomRotation }}
+                  animate={{ opacity: 1, scale: 1, rotate: randomRotation }}
+                  transition={{ 
+                    delay: index * 0.05, 
+                    type: "spring", 
+                    stiffness: 260, 
+                    damping: 20 
+                  }}
+                  className={`
+                    flex items-center gap-3 px-6 py-4 rounded-2xl cursor-grab active:cursor-grabbing
+                    bg-gradient-to-br ${skill.color} text-white shadow-xl hover:shadow-2xl
+                    border border-white/20 backdrop-blur-md select-none touch-none
+                  `}
+                >
+                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm shadow-inner">
+                    {skill.icon}
                   </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+                  <span className="font-bold tracking-wide text-lg whitespace-nowrap drop-shadow-md">
+                    {skill.name}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
 
-          {/* Tools - Square Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="md:col-span-1 lg:col-span-1 glass-panel p-6 rounded-[2rem] flex items-center justify-center relative overflow-hidden group hover:border-orange-400/40 transition-colors"
-          >
-            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] animate-[gradient_3s_linear_infinite] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="text-center relative z-10">
-              <h3 className="text-sm font-bold text-white/50 mb-3 uppercase tracking-widest">Tools</h3>
-              <p className="text-sm font-bold text-orange-400 leading-relaxed">
-                Git, GitHub, Docker,<br/>VS Code, Postman,<br/>Antigravity
-              </p>
-            </div>
-          </motion.div>
-
+          {/* Hint Overlay */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-md rounded-full border border-white/10 pointer-events-none">
+            <span className="text-white/50 text-sm font-medium tracking-widest uppercase">
+              Interactive Physics Zone
+            </span>
+          </div>
         </div>
+
       </div>
     </motion.section>
   );

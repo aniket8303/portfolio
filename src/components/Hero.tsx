@@ -1,9 +1,26 @@
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Download, ArrowRight } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Mail } from 'lucide-react';
 
+const roles = [
+  "Software Developer",
+  "Java Full-Stack Developer",
+  "Backend Developer",
+  "AI / GenAI Enthusiast"
+];
+
 const Hero = () => {
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000); // Change role every 3 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-24 pb-12 relative overflow-hidden">
       {/* Background gradients */}
@@ -32,34 +49,33 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-5xl md:text-7xl font-bold font-heading text-white mb-2 leading-tight"
+            className="text-5xl md:text-7xl font-bold font-heading text-white mb-4 leading-tight"
           >
             Aniket Parekar
           </motion.h1>
           
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-3xl md:text-5xl font-bold text-white mb-4"
-          >
-            Software Developer
-          </motion.h2>
-
-          <motion.h3 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-base md:text-lg text-primary/90 font-medium tracking-wide mb-6 uppercase"
-          >
-            Java Full-Stack Developer | Backend Developer | AI/GenAI Enthusiast
-          </motion.h3>
+          {/* 3D Rotating Role Text */}
+          <div className="h-16 md:h-20 w-full relative perspective-1000 flex items-center justify-center lg:justify-start mb-6 overflow-hidden">
+            <AnimatePresence mode="popLayout">
+              <motion.h2
+                key={currentRoleIndex}
+                initial={{ rotateX: 90, y: 40, opacity: 0 }}
+                animate={{ rotateX: 0, y: 0, opacity: 1 }}
+                exit={{ rotateX: -90, y: -40, opacity: 0 }}
+                transition={{ duration: 0.6, ease: "circOut" }}
+                className="absolute text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400"
+                style={{ transformStyle: "preserve-3d", transformOrigin: "center center -20px" }}
+              >
+                {roles[currentRoleIndex]}
+              </motion.h2>
+            </AnimatePresence>
+          </div>
           
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-white/60 text-lg mb-10 max-w-xl leading-relaxed"
+            className="text-white/60 text-lg mb-10 max-w-xl leading-relaxed mt-4"
           >
             I build practical full-stack and AI-powered applications using Java, Spring Boot, React, SQL and modern AI/GenAI technologies.
           </motion.p>
@@ -107,40 +123,86 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT SIDE: Developer Visual */}
+        {/* RIGHT SIDE: Developer Visual (Orbital Skills) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
           className="order-1 lg:order-2 relative flex justify-center items-center h-full w-full max-w-md mx-auto lg:max-w-none"
         >
-          {/* Abstract Geometry & Code accents */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-70 animate-pulse"></div>
-          
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            {/* Decorative Tech Rings */}
-            <div className="absolute inset-0 border border-white/5 rounded-full animate-[spin_60s_linear_infinite]"></div>
-            <div className="absolute inset-4 border border-primary/20 rounded-full animate-[spin_40s_linear_infinite_reverse] border-dashed"></div>
+          <div className="relative w-80 h-80 md:w-[450px] md:h-[450px] flex items-center justify-center">
             
-            {/* Tech Labels (Floating) */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-background/80 backdrop-blur-md border border-white/10 rounded-full text-xs font-mono text-primary z-20 shadow-lg">
-              {"<Java />"}
-            </div>
-            <div className="absolute top-1/4 -right-8 px-4 py-1.5 bg-background/80 backdrop-blur-md border border-white/10 rounded-full text-xs font-mono text-blue-400 z-20 shadow-lg">
-              {"{React}"}
-            </div>
-            <div className="absolute bottom-1/4 -left-8 px-4 py-1.5 bg-background/80 backdrop-blur-md border border-white/10 rounded-full text-xs font-mono text-green-400 z-20 shadow-lg">
-              {"Spring Boot"}
+            {/* Center Profile Image */}
+            <div className="absolute inset-0 m-auto w-48 h-48 md:w-60 md:h-60 rounded-full z-20 shadow-[0_0_50px_rgba(0,0,0,0.8)] border-4 border-[#1a2333] overflow-hidden group">
+               <div className="absolute inset-0 bg-primary/20 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700 z-10 pointer-events-none"></div>
+               <img 
+                 src="/images/aniket.jpeg" 
+                 alt="Aniket Parekar" 
+                 className="w-full h-full object-cover filter contrast-110 saturate-100 group-hover:scale-105 transition-transform duration-700"
+               />
+               {/* Glowing border accent */}
+               <div className="absolute inset-0 border-2 border-primary/50 rounded-full pointer-events-none"></div>
             </div>
 
-            {/* Profile Photo */}
-            <div className="absolute inset-8 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl z-10 bg-background group">
-              <div className="absolute inset-0 bg-primary/20 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700 z-10 pointer-events-none"></div>
-              <img 
-                src="/images/aniket.jpeg" 
-                alt="Aniket Parekar" 
-                className="w-full h-full object-cover filter contrast-110 saturate-100 group-hover:scale-105 transition-transform duration-700"
-              />
+            {/* Orbital Track (Rotating) */}
+            <div className="absolute w-full h-full border border-white/10 rounded-full animate-[spin_30s_linear_infinite]">
+              
+              {/* React Icon */}
+              <div className="absolute top-0 left-1/2 -ml-6 -mt-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(97,218,251,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* JS Icon */}
+              <div className="absolute top-[14.6%] right-[14.6%] -mr-6 -mt-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(247,223,30,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* TS Icon */}
+              <div className="absolute top-1/2 right-0 -mr-6 -mt-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(49,120,198,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Java Icon */}
+              <div className="absolute bottom-[14.6%] right-[14.6%] -mr-6 -mb-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Node Icon */}
+              <div className="absolute bottom-0 left-1/2 -ml-6 -mb-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(51,153,51,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Tailwind Icon */}
+              <div className="absolute bottom-[14.6%] left-[14.6%] -ml-6 -mb-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Python Icon */}
+              <div className="absolute top-1/2 left-0 -ml-6 -mt-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(55,118,171,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* C++ Icon */}
+              <div className="absolute top-[14.6%] left-[14.6%] -ml-6 -mt-6 w-12 h-12 rounded-full bg-[#111827] border border-white/10 shadow-[0_0_15px_rgba(0,89,156,0.2)] flex items-center justify-center">
+                <div className="animate-[spin_30s_linear_infinite_reverse]">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" className="w-6 h-6" />
+                </div>
+              </div>
+
             </div>
           </div>
         </motion.div>
