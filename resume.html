@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  
+  <title>Resume - Aniket Parekar</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+  <!-- Vendor CSS Files -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- Template Main CSS file -->
+  <link href="css/style.css" rel="stylesheet">
+  
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    #resume-section {
+      position: relative !important;
+      width: 100%;
+      z-index: 10;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      bottom: auto !important;
+      top: auto !important;
+    }
+    .resume-card {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 50px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transform-style: preserve-3d;
+      animation: cardEntrance 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    
+    @keyframes cardEntrance {
+      0% { opacity: 0; transform: translateY(30px) scale(0.97); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    .resume-card h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 5px;
+      letter-spacing: 2px;
+      transform: translateZ(30px);
+    }
+    .resume-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      transform: translateZ(25px);
+    }
+    .resume-card h4 {
+      font-size: 18px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 30px;
+      transform: translateZ(20px);
+    }
+    
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 35px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--bg-color-main);
+      background: linear-gradient(135deg, var(--accent-color), #00f0ff);
+      border-radius: 50px;
+      border: none;
+      box-shadow: 0 5px 20px rgba(18, 214, 64, 0.4);
+      transition: all 0.3s ease;
+      transform: translateZ(40px);
+      text-decoration: none;
+    }
+    
+    .download-btn:hover {
+      transform: translateZ(45px) translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(18, 214, 64, 0.6);
+      color: var(--bg-color-main);
+      text-decoration: none;
+    }
+    
+    .download-btn i {
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+    
+    .download-btn:hover i {
+      transform: translateY(3px);
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      color: var(--text-primary);
+      background: var(--bg-color-glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .back-btn:hover {
+      background: var(--bg-color-glass-hover);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      transform: translateX(-5px);
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .resume-card {
+        padding: 40px 20px;
+        margin: 0 20px;
+      }
+      .back-btn {
+        top: 20px;
+        left: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="bg-canvas"></canvas>
+
+  <a href="index.html" class="back-btn">
+    <i class="bx bx-arrow-back"></i> Back to Portfolio
+  </a>
+
+  <section id="resume-section">
+    <div class="container">
+      <div class="resume-card glass-panel" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+        <h2>RESUME</h2>
+        <h3>Aniket Parekar</h3>
+        <h4>Software Developer</h4>
+        
+        <a href="https://drive.google.com/file/d/1jyyKI4ftNpW3MAl5-bVJmfp2bAV8U6q8/view?usp=drive_link" target="_blank" class="download-btn">
+          <i class="bx bx-download"></i> DOWNLOAD RESUME
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D & Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script src="js/three-background.js"></script>
+</body>
+</html>
