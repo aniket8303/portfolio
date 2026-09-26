@@ -1739,31 +1739,31 @@ section.section-show {
   box-shadow: 0 0 10px rgba(18, 214, 64, 0.8);
 }
 
-.p-1 {
+.particle-1 {
   top: 20%;
   left: 80%;
   animation: float 3s infinite alternate;
 }
 
-.p-2 {
+.particle-2 {
   top: 80%;
   left: 20%;
   animation: float 4s infinite alternate 1s;
 }
 
-.p-3 {
+.particle-3 {
   top: 50%;
   left: 10%;
   animation: float 5s infinite alternate 2s;
 }
 
-.p-4 {
+.particle-4 {
   top: 10%;
   left: 40%;
   animation: float 3.5s infinite alternate 0.5s;
 }
 
-.p-5 {
+.particle-5 {
   top: 90%;
   left: 70%;
   animation: float 4.5s infinite alternate 1.5s;
@@ -1805,8 +1805,8 @@ section.section-show {
 @media (max-width: 768px) {
 
   .ring-3,
-  .p-4,
-  .p-5 {
+  .particle-4,
+  .particle-5 {
     display: none;
   }
 }
